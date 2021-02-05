@@ -2,8 +2,8 @@
 __author__ = 'Administrator'
 from base.BaseCodeGenerator import BaseCodeGenerator
 import base.tools as tools
-from cpp.StructCodeGenerator import *
-import cpp.StructCodeGeneratorTemplate as temp
+from cpp.DbAgentStructCodeGenerator import *
+import cpp.DbAgentStructCodeGeneratorTemplate as temp
 
 #生成参数
 def genItemString(structitem):
@@ -12,23 +12,27 @@ def genItemString(structitem):
     return line
 
 def genInitCode(astruct):
-    initCode = u"\n".join([ u", %s(%s)" % (item.name, u"utils::defaultValue<%s>()" % item.type.getTypeName() if len(item.default) == 0 else item.default)\
+    ret = u"\n".join([ u", %s(%s)" % (item.name, u"utils::defaultValue<%s>()" % item.type.getTypeName() if len(item.default) == 0 else item.default)\
                                  for item in astruct.items if item.type.isNeedInit() or len(item.default) > 0 ])
-    if len(initCode) > 0 : initCode = u':' + initCode[1:len(initCode)]
-    return initCode
+    if len(ret) > 0 : ret = u':' + ret[1:len(ret)]
+    return ret
 
 def genAssignCode(astruct):
-    assignCode = u"\n".join([ u", %s(right.%s)" % (item.name, item.name) for item in astruct.items])
-    if len(assignCode) > 0 : assignCode = u':' + assignCode[1:len(assignCode)]
-    return assignCode
-        
+    ret = u"\n".join([ u", %s(right.%s)" % (item.name, item.name) for item in astruct.items])
+    if len(ret) > 0 : ret = u':' + ret[1:len(ret)]
+    return ret
+     
+def genCopyCode(astruct):
+    ret = u"\n".join([ u"%s = right.%s;" % (item.name, item.name) for item in astruct.items])
+    return ret
+    
 #数据结构
-class StructCodeGenerator(BaseCodeGenerator):
+class DbAgentStructCodeGenerator(BaseCodeGenerator):
     def __init__(self, desc, typeManager, baseName, inputFile, outputFile):
-        BaseCodeGenerator.__init__(self, desc, typeManager, baseName, u"struct")
+        BaseCodeGenerator.__init__(self, desc, typeManager, baseName, u"CPP_DBAGENT_STRUCT")
         self.OutDir = outputFile
-        self.DefFile = "%s_struct.h" % baseName #生成的文件名称
-        self.ImplFile = "%s_struct.cpp" % baseName #生成的文件名称
+        self.DefFile = "%s_dbagent_struct.h" % baseName #生成的文件名称
+        self.ImplFile = "%s_dbagent_struct.cpp" % baseName #生成的文件名称
         self.fileDefTemplate = temp.TEMPLATE_DEF #头文件模板
         self.fileImplTemplate = temp.TEMPLATE_IMPL #实现文件模板
         
@@ -37,7 +41,7 @@ class StructCodeGenerator(BaseCodeGenerator):
         '''
         每一种类型的代码生成，应该有自己额外的需要包含的头文件
         '''
-        self.desc.HppIncludes.append("struct_comment_h.h")
+        #self.desc.HppIncludes.append("")
         str = BaseCodeGenerator.genCodeDefInclude(self)
         return str
     
@@ -46,7 +50,7 @@ class StructCodeGenerator(BaseCodeGenerator):
         '''
         每一种类型的代码生成，应该有自己额外的需要包含的头文件
         '''
-        #self.desc.CppIncludes.append("struct_comment_cpp.h")
+        self.desc.CppIncludes.append(self.DefFile)
         str = BaseCodeGenerator.genCodeImplInclude(self)
         return str
 
@@ -92,6 +96,9 @@ class StructCodeGenerator(BaseCodeGenerator):
         '''assignCode'''
         assignCode = genAssignCode(astruct)
    
+        '''copycode'''
+        copyCode = genCopyCode(astruct)
+   
         '''Serialise'''
         Serialise = ""
         if "json" in astruct.property:
@@ -107,4 +114,5 @@ class StructCodeGenerator(BaseCodeGenerator):
         ret = tools.replace(ret, u"{{TypeNameWithInherit}}", astruct.name)
         ret = tools.replace(ret, u"{{InitCode}}", initCode)
         ret = tools.replace(ret, u"{{AssignCode}}", assignCode)
+        ret = tools.replace(ret, u"{{CopyCode}}", copyCode)
         return ret

@@ -4,7 +4,7 @@
   Author: JanyHong
   Version: v1.0.0
 */
-#include "db_interface_format_struct.h"
+#include "db_interface_format_dbagent_struct.h"
 namespace db_agent_api
 {
 //////////////////////////////
@@ -23,7 +23,9 @@ Test::Test(const Test& right)
 
 Test& Test::operator=(const Test& right)
 {
-    assign(&right);
+    nAge = right.nAge;
+    strName = right.strName;
+    dMoney = right.dMoney;
     return *this;
 }
 
@@ -65,7 +67,19 @@ MerchantCommission::MerchantCommission(const MerchantCommission& right)
 
 MerchantCommission& MerchantCommission::operator=(const MerchantCommission& right)
 {
-    assign(&right);
+    bValid = right.bValid;
+    strAgentId = right.strAgentId;
+    strStartDate = right.strStartDate;
+    strUpdateTime = right.strUpdateTime;
+    nPreferentialType = right.nPreferentialType;
+    nT1DebitCardCommission = right.nT1DebitCardCommission;
+    nT1DebitCardMaxFee = right.nT1DebitCardMaxFee;
+    nT1CreditCardCommission = right.nT1CreditCardCommission;
+    nT1OverseasCardCommission = right.nT1OverseasCardCommission;
+    nT0DebitCardCommission = right.nT0DebitCardCommission;
+    nT0CreditCardCommission = right.nT0CreditCardCommission;
+    nT0OverseasCardCommission = right.nT0OverseasCardCommission;
+    nT0CommissionFixed = right.nT0CommissionFixed;
     return *this;
 }
 

@@ -4,10 +4,8 @@
   Author: JanyHong
   Version: v1.0.0
 */
-#ifndef db_interface_format_client_H_
-#define db_interface_format_client_H_
-#include "json/json.h"
-#include "struct_comment_h.h"
+#ifndef DB_INTERFACE_FORMAT__DBAGENT_CLIENT_H_
+#define DB_INTERFACE_FORMAT__DBAGENT_CLIENT_H_
 #include "server_comment_h.h"
 
 namespace db_agent_api
@@ -41,4 +39,4 @@ private:
 
 }//db_agent_api
 
-#endif //db_interface_format_client_H_
+#endif //DB_INTERFACE_FORMAT__DBAGENT_CLIENT_H_

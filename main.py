@@ -10,6 +10,9 @@ from base.tools import *
 from cpp.StructCodeGenerator import *
 from cpp.ClientCodeGenerator import *
 
+from cpp.DbAgentStructCodeGenerator import *
+from cpp.DbAgentClientCodeGenerator import *
+
 def parseFile(inputFile, typeManager):
     inputHandler = codecs.open(inputFile,'r', 'utf-8')
     parser = RPCParser()
@@ -36,16 +39,33 @@ def cpp_gen(inputFile, outputFile):
     generator = ClientCodeGenerator(desc, typeManager, baseName, hClientOutput, cppClientOutput)
     generator.genCodes()
 
+def db_agent_gen(inputFile, outputFile):
+    baseName = os.path.basename(inputFile)[0:-4]
+    print("baseName,",baseName)
+    print("baseName",baseName)
+    
+    typeManager = CppTypeManger()
+    desc = parseFile(inputFile, typeManager)
+    generator = None
+    generator = DbAgentStructCodeGenerator(desc, typeManager, baseName, inputFile, outputFile)
+    generator.genCodes()
+    
+    #generator = DbAgentClientCodeGenerator(desc, typeManager, baseName, inputFile, outputFile)
+    #generator.genCodes()
+    
+
 def genCodes(language, typeName, inputFile, outputFile):
     print(language, typeName, inputFile, outputFile)
     if language == "cpp":
         cpp_gen(inputFile, outputFile)
+    elif language == "db_agent":
+        db_agent_gen(inputFile, outputFile)
     else:
         print("no sopport:",language)
 
 def Usages():
     print("usages:")
-    print("./CodeGenerator.exe [gen|help] [c|cpp|go] [struct|code|sql] [src_file] [out_dir]")
+    print("./CodeGenerator.exe [gen|help] [c|cpp|go] [struct|code|sql|db_agent] [src_file] [out_dir]")
     print("./CodeGenerator.exe gen cpp struct test.rpc ./ ")
 
 if __name__ == "__main__":

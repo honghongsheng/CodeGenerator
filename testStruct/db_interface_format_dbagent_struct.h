@@ -4,16 +4,21 @@
   Author: JanyHong
   Version: v1.0.0
 */
-#ifndef db_interface_format_struct_H_
-#define db_interface_format_struct_H_
-#include "json/json.h"
-#include "struct_comment_h.h"
+#ifndef DB_INTERFACE_FORMAT_CPP_DBAGENT_STRUCT_H_
+#define DB_INTERFACE_FORMAT_CPP_DBAGENT_STRUCT_H_
+#include <string>
+#include <map>
+#include <vector>
+#include <list>
+#include <json/json.h>
+
+
 namespace db_agent_api
 {
 /**
  * @Test
  */
-struct  Test {
+struct Test {
     int nAge;  //年龄
     std::string strName;  //名称
     double dMoney;  //金额
@@ -29,7 +34,7 @@ struct  Test {
 /**
  * @MerchantCommission
  */
-struct  MerchantCommission {
+struct MerchantCommission {
     int bValid;  //是否有效
     std::string strAgentId;
     std::string strStartDate;
@@ -52,4 +57,5 @@ struct  MerchantCommission {
     void toJson(Json::Value& jsonObj) const;
 };
 }//db_agent_api
-#endif //db_interface_format_struct_H_
+
+#endif //DB_INTERFACE_FORMAT_CPP_DBAGENT_STRUCT_H_

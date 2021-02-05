@@ -1,15 +1,14 @@
 ﻿Namespace = db_agent_api
-#ServiceName = BaseStructs
-#ExportMacro = YK_EXPORT
 
+#头文件需要额外包含的东西
 Includes = (
-    json/json.h,
 )
 
+#源原件需要额外包含的东西
 CppIncludes = (
-    db_interface_format_struct.h
 )
 
+#支持CONST静态变量的定义
 strDbOperationGetMerchant(#s) : "get_merchant_by_id";
 
 #test

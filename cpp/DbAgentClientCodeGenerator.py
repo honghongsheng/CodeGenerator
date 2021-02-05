@@ -2,8 +2,8 @@
 __author__ = 'Administrator'
 import base.tools as tools 
 from base.BaseCodeGenerator import BaseCodeGenerator
-from cpp.ClientCodeGenerator import *
-import cpp.ClientCodeGeneratorTemplate as temp
+from cpp.DbAgentClientCodeGenerator import *
+import cpp.DbAgentClientCodeGeneratorTemplate as temp
 
 def genInParamString(func):
     inParamStr = u", ".join([u"%s %s" % (x[1].paramString(), x[0]) for x in func.inParam])
@@ -23,12 +23,11 @@ def genOutParamCommentString(func):
     return outParamComment
 
 #数据结构
-class ClientCodeGenerator(BaseCodeGenerator):
+class DbAgentClientCodeGenerator(BaseCodeGenerator):
     def __init__(self, desc, typeManager, baseName, inputFile, outputFile):
-        BaseCodeGenerator.__init__(self, desc, typeManager, baseName, u"client")
         self.OutDir = outputFile
-        self.DefFile = "%s_client.h" % baseName #生成的文件名称
-        self.ImplFile = "%s_client.cpp" % baseName #生成的文件名称
+        self.DefFile = "%s_dbagent_client.h" % baseName #生成的文件名称
+        self.ImplFile = "%s_dbagent_client.cpp" % baseName #生成的文件名称
         self.fileDefTemplate = temp.TEMPLATE_DEF #头文件模板
         self.fileImplTemplate = temp.TEMPLATE_IMPL #实现文件模板
     
@@ -37,7 +36,6 @@ class ClientCodeGenerator(BaseCodeGenerator):
         '''
         每一种类型的代码生成，应该有自己额外的需要包含的头文件
         '''
-        self.desc.HppIncludes.append("server_comment_h.h")
         str = BaseCodeGenerator.genCodeDefInclude(self)
         return str
     
@@ -46,7 +44,7 @@ class ClientCodeGenerator(BaseCodeGenerator):
         '''
         每一种类型的代码生成，应该有自己额外的需要包含的头文件
         '''
-        #self.desc.CppIncludes.append("struct_comment_cpp.h")
+        self.desc.CppIncludes.append(self.DefFile)
         str = BaseCodeGenerator.genCodeImplInclude(self)
         return str
 

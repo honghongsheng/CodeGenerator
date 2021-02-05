@@ -14,6 +14,7 @@ class BaseCodeGenerator():
         self.desc = desc
         self.typeManager = typeManager
         self.tag = tag
+        self.OutDir = "" #生成的文件目录
         self.DefFile = "" #生成的文件名称
         self.ImplFile = "" #生成的文件名称
         self.fileDefTemplate = "" #头文件模板
@@ -33,11 +34,11 @@ class BaseCodeGenerator():
         ret = tools.replace(ret, u"{{Contents}}", self.genCodeDefContent())
         
         ret = tools.replace(ret, u"{{FILE_COMMENTS}}", temp.TEMPLATE_COMMENT)
-        ret = tools.replace(ret, u"{{FileName}}", self.baseName)
-        ret = tools.replace(ret, u"{{tag}}", self.tag)
+        ret = tools.replace(ret, u"{{FileName}}", self.baseName.upper())
+        ret = tools.replace(ret, u"{{tag}}", self.tag.upper())
         ret = tools.replace(ret, u"{{ExportMacro}}", self.desc.exportMacro)
         ret = tools.replace(ret, u"{{Namespace}}", self.desc.nameSpace)
-        tools.saveFile(self.DefFile, ret)
+        tools.saveFile(self.OutDir + "/" + self.DefFile, ret)
     
     #c生成.c
     #C++生成.cpp
@@ -52,7 +53,7 @@ class BaseCodeGenerator():
         ret = tools.replace(ret, u"{{tag}}", self.tag)
         ret = tools.replace(ret, u"{{ExportMacro}}", self.desc.exportMacro)
         ret = tools.replace(ret, u"{{Namespace}}", self.desc.nameSpace)
-        tools.saveFile(self.ImplFile, ret)
+        tools.saveFile(self.OutDir + "/" + self.ImplFile, ret)
 
     #生成头文件的包含目录，或者import代码
     def genCodeDefInclude(self):
