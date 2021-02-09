@@ -38,6 +38,7 @@ TEMPLATE_ONE_SERVICE_SYNC_FUNC_DEF =u'''\
 void {{FuncName}}({{InParam}}{{OutParam}});
 '''
 
+
 #应用协议实现
 
 #######################################################
@@ -61,6 +62,13 @@ void {{ServiceName}}_client::init()
 {
 }
 {{Functions}}
+'''
+
+TEMPLATE_ONE_SERVICE_SYNC_FUNC_IMPL =u'''\
+void {{ServiceName}}_client::{{FuncName}}({{InParam}}{{OutParam}})
+{
+{{Protocal_Impl}}
+}
 '''
 
 TEMPLATE_ONE_SERVICE_SYNC_FUNC_IMPL =u'''\

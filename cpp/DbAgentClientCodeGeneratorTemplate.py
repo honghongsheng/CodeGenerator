@@ -7,6 +7,12 @@ TEMPLATE_DEF = u'''\
 {{FILE_COMMENTS}}
 #ifndef {{FileName}}_{{tag}}_H_
 #define {{FileName}}_{{tag}}_H_
+#include <string>
+#include <map>
+#include <vector>
+#include <list>
+#include <json/json.h>
+#include <boost/function>
 {{IncludeCodes}}
 
 namespace {{Namespace}}
@@ -19,26 +25,37 @@ namespace {{Namespace}}
 
 #struct/class
 TEMPLATE_ONE_SERVICE_DEF = u'''\
-class {{ExportMacro}} {{ServiceName}}_client {
+class {{ServiceName}}_client 
+{
 public:
     {{ServiceName}}_client();
     void init();
-
+    
+    /****************************
+     *      自动构建的SQL
+     ****************************/
+    {{SqlFunctions}}
+    
+    /****************************
+     *      自定义调用函数
+     ****************************/
     {{Functions}}
-private:
-    boost::shared_ptr<boom::protocol> m_ptrProtocal;
-    boost::shared_ptr<boom::netengine> m_ptrNetEngine;
+
+    //请求函数的实现，可以自定义实现
+    boost::function<int (const Json::Value &, Json::Value &)> m_funImpl;
 };
 '''
 #请求函数的同步调用
 TEMPLATE_ONE_SERVICE_SYNC_FUNC_DEF =u'''\
-/*
- {{FuncComment}}
- */
-void {{FuncName}}({{InParam}}{{OutParam}});
+int {{FuncName}}({{InParam}}{{OutParam}});
 '''
 
-#应用协议实现
+#SQL调用模板
+TEMPLATE_ONE_SERVICE_SQL_GET_DEF = u'''\
+int Insert{{StructName}}({{StructName}}& {{OutParam}});
+int Get{{StructName}}({{StructName}}& {{OutParam}});
+int Update{{StructName}}({{StructName}}& {{OutParam}});
+'''
 
 #######################################################
 #                       源文件
@@ -59,33 +76,106 @@ TEMPLATE_ONE_SERVICE_IMPL = u'''\
 
 void {{ServiceName}}_client::init()
 {
+    strTag = "";
 }
+
+/****************************
+ *      自动构建的SQL
+ ****************************/
+{{SqlFunctions}}
+
+/****************************
+ *      自定义调用函数
+ ****************************/
 {{Functions}}
 '''
 
-TEMPLATE_ONE_SERVICE_SYNC_FUNC_IMPL =u'''\
-void {{ServiceName}}_client::{{FuncName}}({{InParam}}{{OutParam}})
-{
-{{Protocal_Impl}}
-}
-'''
+#if(0 != jReq_db_agent(jReq, jResp))
 
-#提供给yk_json的协议实现
-TEMPLATE_ONE_SERVICE_SYNC_FUNC_PTOTOCAL_YAKA_IMPL = u'''\
-    //yk_db
+TEMPLATE_ONE_SERVICE_SYNC_FUNC_IMPL =u'''\
+int {{ServiceName}}_client::{{FuncName}}({{InParam}}{{OutParam}})
+{
     int nRet = -1;
     do
     {
-        json::value request;
-        request["operation"] = "{{FuncName}}";
-        request["tag"] = strTag;
+        json::value jReq;
+        json::value jResp;
+        utils::addJsonValue(jReq, "operation", "{{FuncName}}");
+        utils::addJsonValue(jReq, "tag", strTag);
         {{GenJson}}
-        Boom::Buffer respbuf;
-        if(0 != request_db_agent(request, response))
+        if(0 != m_funImpl(jReq, jResp))
         {
             nRet = -1;
             break;
         }
         {{ParseJson}}
     }while(0);
+    return nRet;
+}
+'''
+
+TEMPLATE_ONE_SERVICE_SQL_INSERT_IMPL =u'''\
+int {{ServiceName}}_client::{{StructName}}Insert(const {{StructName}}& data)
+{
+    int nRet = -1;
+    do
+    {
+        json::value jReq;
+        json::value jResp;
+        utils::addJsonValue(jReq, "operation", "{{StructName}}Insert");
+        utils::addJsonValue(jReq, "tag", strTag);
+        data.toJson(jReq);
+        if(0 != m_funImpl(jReq, jResp))
+        {
+            nRet = -1;
+            break;
+        }
+        {{ParseJson}}
+    }while(0);
+    return nRet;
+}
+'''
+
+TEMPLATE_ONE_SERVICE_SQL_GET_IMPL =u'''\
+int {{ServiceName}}_client::{{StructName}}Get_By_{{ByStr}}(const {{StructName}}& data, {{ParStr}})
+{
+    int nRet = -1;
+    do
+    {
+        json::value jReq;
+        json::value jResp;
+        utils::addJsonValue(jReq, "operation", "{{StructName}}Get_By_{{ByStr}}");
+        utils::addJsonValue(jReq, "tag", strTag);
+        {{GenJson}}
+        if(0 != m_funImpl(jReq, jResp))
+        {
+            nRet = -1;
+            break;
+        }
+        data.fromjson(jReq);
+    }while(0);
+    return nRet;
+}
+'''
+
+TEMPLATE_ONE_SERVICE_SQL_UPDATE_IMPL =u'''\
+int {{ServiceName}}_client::{{StructName}}Update_By_{{ByStr}}(const {{StructName}}& data, {{ParStr}})
+{
+    int nRet = -1;
+    do
+    {
+        json::value jReq;
+        json::value jResp;
+        utils::addJsonValue(jReq, "operation", "{{StructName}}Update_By_{{ByStr}}");
+        utils::addJsonValue(jReq, "tag", strTag);
+        data.toJson(jReq);
+        if(0 != m_funImpl(jReq, jResp))
+        {
+            nRet = -1;
+            break;
+        }
+        {{ParseJson}}
+    }while(0);
+    return nRet;
+}
 '''

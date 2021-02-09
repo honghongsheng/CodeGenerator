@@ -22,7 +22,6 @@ class RPCParser:
         desc.enums = self.parseEnums(rawString)
         desc.structs = self.parseStructs(rawString)
         desc.services = self.parseServices(rawString)
-        #desc.functions = self.parseFunctions(rawString)
         desc.consts = self.parseConsts(rawString)
         desc.isNewError = self.parseIsNewError(rawString)
         return desc
@@ -95,7 +94,6 @@ class RPCParser:
                 propertys = []
                 for i in tmp:
                     propertys.append(i.strip())
-                #print "parseEnums propertys: ",propertys
             else:
                 propertys = []
             for property in propertys:
@@ -183,7 +181,7 @@ class RPCParser:
         strStructs = re.findall(u"struct\s*\w+(?:\s*\|\s*[^:]+){0,1}\s*:\s*\{[^\)]+\}(?:\s*\([^\}]+\)){0,1}", rawString)
         structs = []
         for aStruct in strStructs:
-            #print "parse struct %s" % repr(aStruct)
+            #print("aStruct:",aStruct)
             m = re.search(u"(?P<name>\w+)(\s*\|\s*(?P<base>[^:]+)){0,1}\s*:\s*\{(?P<content>[^\)]+)\}\s*(\((?P<property>[^\}]+)\)){0,1}", aStruct)
             baseType = m.group(u"base")
             name = m.group(u"name").strip()
@@ -231,21 +229,34 @@ class RPCParser:
 
     def parseServices(self, rawString):
         """
-        strServices = re.findall(u"service\s*\w+\s+\{\s*(\s*\w+\([^\)]*\)\s*=>\s*\([^\)]*\)\s*(?:\s*\{[^\}]+\}){0,1}\s*)+\s*\}\s*", rawString)
-        print("strServices",strServices)
+        strServices = re.findall(u"service\s*\w+\s*:\s*\{[^\}]+\}(?:\s*\([^\}]+\)){0,1}", rawString)
         services = []
         for strService in strServices:
-            print("strService",strService)
-            m = re.search(u"service\s*(?P<ServiceName>\w+)\s+\{(\s*\w+\([^\)]*\)\s*=>\s*\([^\)]*\)\s*(?:\s*\{[^\}]+\}){0,1}\s*)+\}", strService)
+            print("strService:",strService)
+            m = re.search(u"service\s*(?P<ServiceName>\w+)\s*:\s*\{(?P<funcs_content>[^\}]+)\}\s*(\((?P<property>[^\}]+)\)){0,1}", strService)
             if m :
-                ServiceName = self.parseParams(m.group(u"ServiceName"))
-                print("ServiceName",ServiceName)
-                service = Service(ServiceName,functions)
-                services.append(service)
-        """ 
+                #ServiceName = m.group(u"ServiceName")
+                #StrPropertys = m.group(u"property")
+                #StrFuncsContent = m.group(u"funcs_content")
+                #print("ServiceName",ServiceName)
+                #print("StrPropertys",StrPropertys)
+                #print("StrFuncsContent",StrFuncsContent)
+                Propertys = {}
+                if StrPropertys:
+                    StrPropertys = StrPropertys.strip().split(",")
+                    tmp = StrPropertys
+                    for i in tmp:
+                        if i.find("=") >= 0:
+                            d = i.strip()
+                            kvItem = d.split("=")
+                            if len(kvItem) == 2:
+                                Propertys[kvItem[0].strip()] = kvItem[1].strip()
+                        else:
+                            Propertys[i.strip()] = 1
+                services.append(Service(ServiceName, Propertys, self.parseFunctions(StrFuncsContent)))
+        """
         services = []
-        service = Service("dbInterface", self.parseFunctions(rawString))
-        services.append(service)
+        services.append(Service("test_server", {}, self.parseFunctions(rawString)))
         return services
 
     def parseFunctions(self, rawString):

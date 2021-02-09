@@ -39,27 +39,30 @@ def cpp_gen(inputFile, outputFile):
     generator = ClientCodeGenerator(desc, typeManager, baseName, hClientOutput, cppClientOutput)
     generator.genCodes()
 
-def db_agent_gen(inputFile, outputFile):
+def cpp_dbagent_gen(inputFile, outputFile):
     baseName = os.path.basename(inputFile)[0:-4]
-    print("baseName,",baseName)
     print("baseName",baseName)
+    print("inputFile",inputFile)
+    print("outputFile",outputFile)
     
     typeManager = CppTypeManger()
     desc = parseFile(inputFile, typeManager)
     generator = None
-    generator = DbAgentStructCodeGenerator(desc, typeManager, baseName, inputFile, outputFile)
-    generator.genCodes()
     
-    #generator = DbAgentClientCodeGenerator(desc, typeManager, baseName, inputFile, outputFile)
+    #generator = DbAgentStructCodeGenerator(desc, typeManager, baseName, inputFile, outputFile)
     #generator.genCodes()
+    
+    generator = DbAgentClientCodeGenerator(desc, typeManager, baseName, inputFile, outputFile)
+    generator.genCodes()
     
 
 def genCodes(language, typeName, inputFile, outputFile):
     print(language, typeName, inputFile, outputFile)
     if language == "cpp":
-        cpp_gen(inputFile, outputFile)
-    elif language == "db_agent":
-        db_agent_gen(inputFile, outputFile)
+        if typeName == "db_agent":
+            cpp_dbagent_gen(inputFile, outputFile)
+        else:
+            print("Not support yerd")
     else:
         print("no sopport:",language)
 

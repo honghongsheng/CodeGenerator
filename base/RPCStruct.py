@@ -158,11 +158,13 @@ class Function:
         return u"name:" + self.name + u"\n" + u"inparam:" + str(self.inParam) + u"\n" + u"outParam:" + str(self.outParam) + u"\n"
 
 class Service:
-    def __init__(self, name, functions):
+    def __init__(self, name, property, functions):
         # 服务名称
         self.name = name
         # 请求函数 [ Function ]
         self.functions = functions
+        #属性 {}
+        self.property = property
 
 class EnumItem :
     def __init__(self):
