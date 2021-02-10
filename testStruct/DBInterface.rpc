@@ -727,7 +727,9 @@ struct Pos2DeductRegular  : {
 #######################################################################
 #       这里是RPC部分，用于支持自定义请求接口
 #       格式为:func_name(请求参数) => (回复参数)
+#       属性：FUN_WITH_TRANSCID，是否为每个请求函数增加transID参数
 #######################################################################
+FUN_WITH_TRANSCID = 0
 say_hello(req:#s) => (resq:#s);
 update_metchant_commission_perfertialType(nPreferentialType:#i, strAgentId:#s) => (ret:#i);
 

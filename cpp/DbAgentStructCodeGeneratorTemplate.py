@@ -18,6 +18,12 @@ TEMPLATE_DEF = u'''\
 namespace {{Namespace}}
 {
 {{Contents}}
+
+//序列化接口
+utils
+{
+    {{JsonUtils}}
+}
 }//{{Namespace}}
 
 #endif //{{FileName}}_{{tag}}_H_
@@ -62,6 +68,12 @@ TEMPLATE_IMPL = u'''\
 namespace {{Namespace}}
 {
 {{Contents}}
+
+//序列化接口
+utils
+{
+    {{JsonUtils}}
+}
 }//{{Namespace}}
 '''
 

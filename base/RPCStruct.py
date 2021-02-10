@@ -2,8 +2,9 @@
 __author__ = 'Administrator'
 
 class TypeInfo:
-    def __init__(self, typeName, needInit, constRef):
+    def __init__(self, rawTypeName, typeName, needInit, constRef):
         self.typeName = typeName
+        self.rawTypeName = rawTypeName
         self.needInit = needInit
         self.constRef = constRef
         if not self.needInit :
@@ -21,6 +22,9 @@ class TypeInfo:
 
     def getTypeName(self):
         return self.typeName
+    
+    def getRawTypeName(self):
+        return self.rawTypeName
 
     def isNeedInit(self):
         return self.needInit
@@ -62,26 +66,27 @@ class TypeInfo:
 class TypeManager:
     def __init__(self):
         self.types = {}
-        self.types[u"b"] = TypeInfo(u"bool", True, False)
-        self.types[u"i"] = TypeInfo(u"int", True, False)
-        self.types[u"d"] = TypeInfo(u"double", True, False)
-        self.types[u"l"] = TypeInfo(u"long long", True, False)
-        self.types[u"s"] = TypeInfo(u"std::string", False, False)
-        self.types[u"v"] = TypeInfo(u"std::vector", True, False)
-        self.types[u"m"] = TypeInfo(u"std::map", True, False)
+        self.types[u"b"] = TypeInfo(u"b", u"bool", True, False)
+        self.types[u"i"] = TypeInfo(u"i", u"int", True, False)
+        self.types[u"i64"] = TypeInfo(u"i64", u"int64_t", True, False)
+        self.types[u"i32"] = TypeInfo(u"i32", u"int32_t", True, False)
+        self.types[u"d"] = TypeInfo(u"d", u"double", True, False)
+        self.types[u"l"] = TypeInfo(u"l", u"long long", True, False)
+        self.types[u"s"] = TypeInfo(u"s", u"string", False, False)
+        self.types[u"v"] = TypeInfo(u"v", u"vector", True, False)
+        self.types[u"m"] = TypeInfo(u"m", u"map", True, False)
 
     def getTypeInfo(self, tag):
+        
         tag = tag.strip(u"#")
         if len(tag) == 1:
             tag = tag.lower()
         typeInfo = self.types.get(tag, None)
         if typeInfo is None:
             typeName = self.getTypeName(tag)
-            typeInfo = TypeInfo(typeName, False, True)
+            print(tag, typeName)
+            typeInfo = TypeInfo(tag, typeName, False, True)
         return typeInfo
-
-    def registerType(self, typeName):
-        self.types[typeName] = TypeInfo(typeName, False, True)
 
     def getTypeName(self, tag):
         rawTag = tag
@@ -119,34 +124,29 @@ class TypeManager:
         return typeName
 
 class Function:
-    def __init__(self, name, inParam, outParam, property, comment):
+    def __init__(self, name, strInparam, strOutParam, property, comment):
         self.name = name
-        self.strInparam = inParam
-        self.strOutParam = outParam
+        self.strInparam = strInparam
+        self.strOutParam = strOutParam
         self.property = property
         self.comment = comment
         # 外部使用的参数
         self.inParam = []   # [ [#s, TypeInfo] ] , #s代表参数名, TypeInfo代表参数类型
         self.outParam = []  # [ [#s, TypeInfo] ] , #s代表参数名, TypeInfo代表参数类型
 
+        # trace_id
+        self.with_trace_id = ''
+
     def genTypeInfos(self, typeManger):
+        if self.with_trace_id == '1':
+            self.strInparam.insert(0, ['trace_id','#s'])
+        
+        for param in self.strInparam:
+            print(param) 
+        
         self.inParam = [ [param[0], typeManger.getTypeInfo(param[1]) ] for param in self.strInparam ]
         self.outParam = [ [param[0], typeManger.getTypeInfo(param[1]) ] for param in self.strOutParam ]
         
-        """
-        # 避免参数重复
-        inParams = []
-        for inParam in self.inParam:
-            find = False
-            for outParam in self.outParam:
-                if inParam[0] == outParam[0]:
-                    find = True
-                    break
-            if not find:
-                inParams.append(inParam)
-        self.inParam = inParams
-        """
-
     def isIncrement(self):
         bIncrement = False
         if len(self.outParam) == 1:
@@ -264,8 +264,6 @@ class RPCDescript:
         self.services = []
         # 请求函数 [ Function ]
         #self.functions = []
-        # 错误类型
-        self.isNewError = False
         # 类型管理器
         self.typeManager = CppTypeManger()
 

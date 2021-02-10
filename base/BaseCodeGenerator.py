@@ -32,7 +32,7 @@ class BaseCodeGenerator():
         ret = self.fileDefTemplate
         ret = tools.replace(ret, u"{{IncludeCodes}}", self.genCodeDefInclude())
         ret = tools.replace(ret, u"{{Contents}}", self.genCodeDefContent())
-        
+        ret = tools.replace(ret, u"{{JsonUtils}}", self.genCodeDefJsonUtils())
         ret = tools.replace(ret, u"{{FILE_COMMENTS}}", temp.TEMPLATE_COMMENT)
         ret = tools.replace(ret, u"{{FileName}}", self.baseName.upper())
         ret = tools.replace(ret, u"{{tag}}", self.tag.upper())
@@ -47,7 +47,7 @@ class BaseCodeGenerator():
         ret = self.fileImplTemplate
         ret = tools.replace(ret, u"{{IncludeCodes}}", self.genCodeImplInclude())
         ret = tools.replace(ret, u"{{Contents}}", self.genCodeImplContent())
-        
+        ret = tools.replace(ret, u"{{JsonUtils}}", self.genCodeImplJsonUtils())
         ret = tools.replace(ret, u"{{FILE_COMMENTS}}", temp.TEMPLATE_COMMENT)
         ret = tools.replace(ret, u"{{FileName}}", self.baseName)
         ret = tools.replace(ret, u"{{tag}}", self.tag)
@@ -73,3 +73,8 @@ class BaseCodeGenerator():
     def genCodeImplContent(self):
         return ""
 
+    def genCodeDefJsonUtils(self):
+        return ""
+    
+    def genCodeImplJsonUtils(self):
+        return ""

@@ -70,6 +70,18 @@ class DbAgentStructCodeGenerator(BaseCodeGenerator):
         ret = u'\n'.join('%s' % self.genCodeImplOneStruct(astruct) for astruct in self.desc.structs)
         return ret
     
+    def genCodeDefJsonUtils(self):
+        ret = ''
+        for astruct in self.desc.structs:
+            ret += 'template<> utils::addJsonValue(jReq, "_%s_", const %s& _%s_);\n' % (astruct.name, astruct.name.lower(), astruct.name.lower())
+        return ret
+    
+    def genCodeImplJsonUtils(self):
+        ret = ''
+        for astruct in self.desc.structs:
+            ret += 'template<> utils::addJsonValue(jReq, "_%s_", const %s& _%s_){_%s_.toJson(jReq);}\n' % (astruct.name, astruct.name, astruct.name.lower(), astruct.name.lower())
+        return ret
+    
     #生成一个struct定义
     def genCodeDefOneStruct(self, astruct):
         '''Variables'''

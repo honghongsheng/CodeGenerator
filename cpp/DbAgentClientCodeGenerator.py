@@ -5,10 +5,13 @@ from base.BaseCodeGenerator import BaseCodeGenerator
 from cpp.DbAgentClientCodeGenerator import *
 import cpp.DbAgentClientCodeGeneratorTemplate as temp
 import itertools #排列组合
+try:
+    from base.RPCStruct import *
+except:
+    from rpc.script.codeGenerator.base.RPCStruct import *
 
 def genInParamString(func):
     inParamStr = u", ".join([u"%s %s" % (x[1].paramString(), x[0]) for x in func.inParam])
-    if len(inParamStr) > 0 : inParamStr += u", "
     return inParamStr
 
 def genOutParamString(func):
@@ -131,12 +134,12 @@ class DbAgentClientCodeGenerator(BaseCodeGenerator):
         """params"""
         inParamStr = genInParamString(func)
         outParamStr = genOutParamString(func)
+        if len(outParamStr) > 0 : inParamStr += u", "
         
         """func params comment"""
         inParamComment = genInParamCommentString(func)
         outParamComment = genOutParamCommentString(func)
         if len(outParamComment) > 0 : inParamComment += u"\n"
-        strParamComment = ""#inParamComment + outParamComment
 
         ret = temp.TEMPLATE_ONE_SERVICE_SYNC_FUNC_DEF
         ret = tools.replace(ret, u"{{FuncName}}", func.name)
@@ -144,11 +147,12 @@ class DbAgentClientCodeGenerator(BaseCodeGenerator):
         ret = tools.replace(ret, u"{{OutParam}}", outParamStr)
         return ret
     
-    #genCodeDefOneServiceFunc
+    #genCodeImplOneServiceFunc
     def genCodeImplOneServiceFunc(self, aservice, func):
         """params"""
         inParamStr = genInParamString(func)
         outParamStr = genOutParamString(func)
+        if len(outParamStr) > 0 : inParamStr += u", "
 
         """实现协议"""
         genYkJson = u"\n".join([ u"utils::addJsonValue(jReq, \"%s\", %s);" % (param[0], param[0]) for param in func.inParam ] )
@@ -170,42 +174,32 @@ class DbAgentClientCodeGenerator(BaseCodeGenerator):
         ret = u'\n'.join('%s' % self.genCodeDefOneStructSqlfunctions(aservice, astruct) for astruct in self.desc.structs if "sql" in astruct.property)
         return ret
     
-    def genCodeDefOneStructSqlfunctions(self, aservice, astruct):
-        '''
-        SQL请求, enum,struct
-        '''
+    def genCodeOneStructSqlFunctions(self, aservice, astruct):
         KeyItems = [item for item in astruct.items if item.isKey == True]
         KeyItems = strip(KeyItems)
-        print('----%s---' % astruct.name)
 
-        #去重,排列组合
-        
-        
-        ret = "//%s\n" % astruct.name
+        Functions = []
         """Insert"""
-        ret += self.genCodeDefOneSqlInsertfunctions(aservice, astruct, KeyItems)
+        Functions.append(self.genCodeOneSqlInsertFunction(aservice, astruct, KeyItems))
         """Get"""
-        ret += u'\n'.join('%s' % self.genCodeDefOneSqlGetByKeysfunctions(aservice, astruct, keyitem) for keyitem in KeyItems)
+        for keyitem in KeyItems:
+            Functions.append(self.genCodeOneSqlGetByKeysFunction(aservice, astruct, keyitem))
         """Update"""
-        ret += '\n'
-        ret += u'\n'.join('%s' % self.genCodeDefOneSqlUpdateByKeysfunctions(aservice, astruct, keyitem) for keyitem in KeyItems)
-        return ret
+        for keyitem in KeyItems:
+            Functions.append(self.genCodeOneSqlUpdateByKeysFunction(aservice, astruct, keyitem))
+            
+        Functions_1 = []
+        for afunc in Functions:
+            afunc.with_trace_id = self.desc.with_trace_id
+            afunc.genTypeInfos(self.typeManager)
+            Functions_1.append(afunc)
+        return Functions_1
     
-    def genCodeDefOneSqlInsertfunctions(self, aservice, astruct, structitems):
-        ret = 'int %sInsert(%s& %s);\n' % (astruct.name, astruct.name, astruct.name)
-        return ret
-    
-    def genCodeDefOneSqlGetByKeysfunctions(self, aservice, astruct, structitems):
-        byStr = '_'.join(['%s' % stripStart(item.name) for item in structitems])
-        parStr = ', '.join(['const %s& %s' % (item.type.getTypeName(), item.name) for item in structitems])
-        ret = 'int %sGet_By_%s(%s& %s, %s);' % (astruct.name, byStr, astruct.name, astruct.name.lower(), parStr)
-        return ret
-    
-    def genCodeDefOneSqlUpdateByKeysfunctions(self, aservice, astruct, structitems):
-        byStr = '_'.join(['%s' % stripStart(item.name) for item in structitems])
-        parStr = ', '.join(['const %s& %s' % (item.type.getTypeName(), item.name) for item in structitems])
-        ret = 'int %sUpdate_By_%s(%s& %s, %s);' % (astruct.name, byStr, astruct.name, astruct.name.lower(), parStr)
-        return ret
+    def genCodeDefOneStructSqlfunctions(self, aservice, astruct):
+        '''
+        '''
+        Functions =  self.genCodeOneStructSqlFunctions(aservice, astruct)
+        return '\n'.join([self.genCodeDefOneServiceFunc(aservice, afunc) for afunc in Functions])
     
     def genCodeImplSqlfunctions(self, aservice):
         '''
@@ -214,49 +208,24 @@ class DbAgentClientCodeGenerator(BaseCodeGenerator):
         return ret
     
     def genCodeImplOneStructSqlfunctions(self, aservice, astruct):
-        '''
-        SQL请求, enum,struct
-        '''
-        KeyItems = [item for item in astruct.items if item.isKey == True]
-        #去重,排列组合
-        KeyItems = strip(KeyItems)
-
-        ret = ""
-        """ Insert """
-        ret += self.genCodeImplOneSqlInsertfunctions(aservice, astruct)
-        """ Get """
-        ret += u'\n'.join('%s' % self.genCodeImplOneSqlGetByKeysfunctions(aservice, astruct, keyitem) for keyitem in KeyItems)
-        """ Update """
-        ret += '\n'
-        ret += u'\n'.join('%s' % self.genCodeImplOneSqlUpdateByKeysfunctions(aservice, astruct, keyitem) for keyitem in KeyItems)
-        return ret
+        Functions =  self.genCodeOneStructSqlFunctions(aservice, astruct)
+        return '\n'.join([self.genCodeImplOneServiceFunc(aservice, afunc) for afunc in Functions])
     
-    def genCodeImplOneSqlInsertfunctions(self, aservice, astruct):
-        ret = temp.TEMPLATE_ONE_SERVICE_SQL_INSERT_IMPL
-        ret = tools.replace(ret, u"{{FuncName}}", self.baseName)
-        ret = tools.replace(ret, u"{{StructName}}", astruct.name)
-        return ret
+    def genCodeOneSqlInsertFunction(self, aservice, astruct, structitems):
+        func_name = "%sInsert" % astruct.name
+        func_inParams = [[astruct.name, '#%s' % astruct.name]]
+        func = Function(func_name, func_inParams, [], {}, "")
+        return func
     
-    def genCodeImplOneSqlGetByKeysfunctions(self, aservice, astruct, structitems):
-        
-        
-        byStr = '_'.join(['%s' % stripStart(item.name) for item in structitems])
-        parStr = ', '.join(['const %s& %s' % (item.type.getTypeName(), item.name) for item in structitems])
-        
-        ret = temp.TEMPLATE_ONE_SERVICE_SQL_GET_IMPL
-        ret = tools.replace(ret, u"{{FuncName}}", self.baseName)
-        ret = tools.replace(ret, u"{{StructName}}", astruct.name)
-        ret = tools.replace(ret, u"{{ByStr}}", byStr)
-        ret = tools.replace(ret, u"{{ParStr}}", parStr)
-        return ret
+    def genCodeOneSqlGetByKeysFunction(self, aservice, astruct, structitems):
+        func_name = "%sGet_By_%s" % (astruct.name, '_'.join(['%s' % stripStart(item.name) for item in structitems]))
+        func_inParams = [ [item.name, '#%s' % item.type.getRawTypeName()] for item in structitems]
+        func_outParams = [[astruct.name, '#%s' % astruct.name]]
+        func = Function(func_name, func_inParams, func_outParams,  {}, "")
+        return func
     
-    def genCodeImplOneSqlUpdateByKeysfunctions(self, aservice, astruct, structitems):
-        byStr = '_'.join(['%s' % stripStart(item.name) for item in structitems])
-        parStr = ', '.join(['const %s& %s' % (item.type.getTypeName(), item.name) for item in structitems])
-        
-        ret = temp.TEMPLATE_ONE_SERVICE_SQL_UPDATE_IMPL
-        ret = tools.replace(ret, u"{{FuncName}}", self.baseName)
-        ret = tools.replace(ret, u"{{StructName}}", astruct.name)
-        ret = tools.replace(ret, u"{{ByStr}}", byStr)
-        ret = tools.replace(ret, u"{{ParStr}}", parStr)
-        return ret
+    def genCodeOneSqlUpdateByKeysFunction(self, aservice, astruct, structitems):
+        func_name = "%sUpdate_By_%s" % (astruct.name, '_'.join(['%s' % stripStart(item.name) for item in structitems]))
+        func_inParams = [ [item.name, '#%s' % item.type.getRawTypeName()] for item in structitems]
+        func = Function(func_name, func_inParams, [], {}, "")
+        return func

@@ -14,7 +14,10 @@ TEMPLATE_DEF = u'''\
 #include <json/json.h>
 #include <boost/function>
 {{IncludeCodes}}
-
+using std::string;
+using std::map;
+using std::vector;
+using std::list;
 namespace {{Namespace}}
 {
 {{Contents}}
@@ -48,13 +51,6 @@ public:
 #请求函数的同步调用
 TEMPLATE_ONE_SERVICE_SYNC_FUNC_DEF =u'''\
 int {{FuncName}}({{InParam}}{{OutParam}});
-'''
-
-#SQL调用模板
-TEMPLATE_ONE_SERVICE_SQL_GET_DEF = u'''\
-int Insert{{StructName}}({{StructName}}& {{OutParam}});
-int Get{{StructName}}({{StructName}}& {{OutParam}});
-int Update{{StructName}}({{StructName}}& {{OutParam}});
 '''
 
 #######################################################

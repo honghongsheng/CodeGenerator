@@ -20,32 +20,32 @@ namespace db_agent_api
  */
 struct Merchant {
     bool bValid;
-    std::string strMerchantId;
-    std::string strUnionPayMerchantId;
-    std::string strMerchantName;
-    std::string strAgentId;
-    std::string strTopAgentId;
-    std::string strMccCode;
-    std::string strRealMccCode;
-    std::string strApplicant;
-    std::string strBankArea;
-    std::string strBankAccount;
-    std::string strBankCity;
-    std::string strbankHolder;
-    std::string strProvince;
-    std::string strCity;
-    std::string strCreateTime;
-    std::string strStartTimeLimit;
-    std::string strEndTimeLimit;
-    std::string strIdCard;
-    std::string strLatitude;
-    std::string strLongitude;
-    std::string strUnionpayCode;
-    std::string strChannelMerchantId;
-    std::string strMobile;
-    std::string strUserName;
-    std::string strMerchantKey;
-    std::string strBankName;
+    string strMerchantId;
+    string strUnionPayMerchantId;
+    string strMerchantName;
+    string strAgentId;
+    string strTopAgentId;
+    string strMccCode;
+    string strRealMccCode;
+    string strApplicant;
+    string strBankArea;
+    string strBankAccount;
+    string strBankCity;
+    string strbankHolder;
+    string strProvince;
+    string strCity;
+    string strCreateTime;
+    string strStartTimeLimit;
+    string strEndTimeLimit;
+    string strIdCard;
+    string strLatitude;
+    string strLongitude;
+    string strUnionpayCode;
+    string strChannelMerchantId;
+    string strMobile;
+    string strUserName;
+    string strMerchantKey;
+    string strBankName;
     int nSpId;
     int nBankAccountType;
     int nMiaodaoActivity;
@@ -99,8 +99,8 @@ struct Merchant {
  */
 struct MerchantCommission {
     bool bValid;
-    std::string strMerchantId;
-    std::string strCreateTime;
+    string strMerchantId;
+    string strCreateTime;
     int nPreferentialType;
     int nT1DebitCardCommission;
     int nT1DebitCardMaxFee;
@@ -141,16 +141,16 @@ struct MerchantCommissionByPlanId {
  */
 struct Agent {
     bool bValid;
-    std::string strAgentId;
-    std::string strAgentName;
-    std::string strParentId;
-    std::string strThirdPartyPublicKey;
+    string strAgentId;
+    string strAgentName;
+    string strParentId;
+    string strThirdPartyPublicKey;
     int nproperty;
     int nAgentType;
     int nAgentClass;
     int nStatus;
     int nProfitRuleType;
-    std::string strCreateTime;
+    string strCreateTime;
 
     Agent();
     Agent(const Agent& right);
@@ -165,9 +165,9 @@ struct Agent {
  */
 struct AgentCommission {
     bool bValid;
-    std::string strAgentId;
-    std::string strStartDate;
-    std::string strUpdateTime;
+    string strAgentId;
+    string strStartDate;
+    string strUpdateTime;
     int nPreferentialType;
     int nT1DebitCommissionBymillion;
     int nT1DebitMaxFeeBymillion;
@@ -192,10 +192,10 @@ struct AgentCommission {
  * @PinpadCheckin
  */
 struct PinpadCheckin {
-    std::string strPinpadId;
-    std::string strTakByLmk;
-    std::string strTakByTmk;
-    std::string strCheckInTime;
+    string strPinpadId;
+    string strTakByLmk;
+    string strTakByTmk;
+    string strCheckInTime;
 
     PinpadCheckin();
     PinpadCheckin(const PinpadCheckin& right);
@@ -212,14 +212,14 @@ struct pinpad_info {
     bool bValid;
     int nHasEncryptor;
     int nState;
-    std::string strPinpadId;
-    std::string strMerchantId;
-    std::string strSerialNum;
-    std::string strTTK;
-    std::string strTmkByLmk;
-    std::string strTpkByTmk;
-    std::string strTpkByLmk;
-    std::string strPinpadUuid;
+    string strPinpadId;
+    string strMerchantId;
+    string strSerialNum;
+    string strTTK;
+    string strTmkByLmk;
+    string strTpkByTmk;
+    string strTpkByLmk;
+    string strPinpadUuid;
 
     pinpad_info();
     pinpad_info(const pinpad_info& right);
@@ -239,25 +239,25 @@ struct pinpad_uuid_info {
     int nEnable;
     int nRepairCounts;
     int nLoadTmkAllowNum;
-    std::string strPinpadUuid;
-    std::string strPinpadId;
-    std::string strDeviceId;
-    std::string strCreateTime;
-    std::string strStartUsingTime;
-    std::string strStartUsingDay;
-    std::string strLastRepairTime;
-    std::string strSn;
-    std::string strIndustryName;
-    std::string strIndustryModel;
-    std::string strPinpadCreateTime;
-    std::string strPinpadCommuication;
-    std::string strPinpadOrganNo;
-    std::string strPosType;
-    std::string strIndustryCode;
-    std::string strStoreTime;
-    std::string strDeliverTime;
-    std::string strLeshuaModel;
-    std::string strAuthCode;
+    string strPinpadUuid;
+    string strPinpadId;
+    string strDeviceId;
+    string strCreateTime;
+    string strStartUsingTime;
+    string strStartUsingDay;
+    string strLastRepairTime;
+    string strSn;
+    string strIndustryName;
+    string strIndustryModel;
+    string strPinpadCreateTime;
+    string strPinpadCommuication;
+    string strPinpadOrganNo;
+    string strPosType;
+    string strIndustryCode;
+    string strStoreTime;
+    string strDeliverTime;
+    string strLeshuaModel;
+    string strAuthCode;
 
     pinpad_uuid_info();
     pinpad_uuid_info(const pinpad_uuid_info& right);
@@ -287,10 +287,10 @@ struct Pinpad {
  */
 struct MerchantBindCups {
     bool bValid;
-    std::string strMerchantId;
-    std::string strChannelMerchantId;
-    std::string strShowChannelMerchantId;
-    std::string strBindTime;
+    string strMerchantId;
+    string strChannelMerchantId;
+    string strShowChannelMerchantId;
+    string strBindTime;
     int nBindType;
     int nBindKey;
 
@@ -307,17 +307,17 @@ struct MerchantBindCups {
  */
 struct CupsMerchant {
     bool bValid;
-    std::string strCupsId;
-    std::string strTerminalId;
-    std::string strMerchantName;
-    std::string strTerminalSn;
-    std::string strZmk;
-    std::string strZmkByLmk;
-    std::string strMccCode;
-    std::string strOrganNo;
-    std::string strSource;
-    std::string strCreateTime;
-    std::string strUpdateTime;
+    string strCupsId;
+    string strTerminalId;
+    string strMerchantName;
+    string strTerminalSn;
+    string strZmk;
+    string strZmkByLmk;
+    string strMccCode;
+    string strOrganNo;
+    string strSource;
+    string strCreateTime;
+    string strUpdateTime;
     int nHasEncryptor;
     int nCommision;
     int nCommissionExt;
@@ -353,21 +353,21 @@ struct CupsMerchant {
  * @RouteDetails
  */
 struct RouteDetails {
-    std::string strRegularNo;
-    std::string strMerchantId;
-    std::string strOrderId;
-    std::string strTransactionId;
-    std::string strSettlementAccount;
-    std::string strPaychannelMerchantId;
-    std::string strPaychannelTerminalId;
-    std::string strPaychannelMerchantName;
-    std::string strTopAgentId;
-    std::string strPinpadUuid;
-    std::string strMerchantOrganId;
-    std::string strMerchantMccCode;
-    std::string strPaychannelMerchantOrganId;
-    std::string strPaychannelMerchantMccCode;
-    std::string strEncryptCardId;
+    string strRegularNo;
+    string strMerchantId;
+    string strOrderId;
+    string strTransactionId;
+    string strSettlementAccount;
+    string strPaychannelMerchantId;
+    string strPaychannelTerminalId;
+    string strPaychannelMerchantName;
+    string strTopAgentId;
+    string strPinpadUuid;
+    string strMerchantOrganId;
+    string strMerchantMccCode;
+    string strPaychannelMerchantOrganId;
+    string strPaychannelMerchantMccCode;
+    string strEncryptCardId;
     int nBankCardType;
     int nPaychannelId;
     int nTerminalType;
@@ -387,11 +387,11 @@ struct RouteDetails {
  * @ChannelPosInfo
  */
 struct ChannelPosInfo {
-    std::string strPosSn;
-    std::string strChannelMerchantId;
-    std::string strChannelAgentId;
-    std::string strTerminalId;
-    std::string strTerminalType;
+    string strPosSn;
+    string strChannelMerchantId;
+    string strChannelAgentId;
+    string strTerminalId;
+    string strTerminalType;
     int nChannelCatiStatus;
     int nChannelBusiFlag;
     int nChannelTjBusiFlag;
@@ -408,9 +408,9 @@ struct ChannelPosInfo {
  * @ChannelMerchantInfo
  */
 struct ChannelMerchantInfo {
-    std::string strChannelAgentId;
-    std::string strChannelShopId;
-    std::string strMerchantId;
+    string strChannelAgentId;
+    string strChannelShopId;
+    string strMerchantId;
     int nChannelMerchantStatus;
     int nChannelMerchantInsuranceFlag;
     int nChannelMerchantDebitT0Flag;
@@ -432,9 +432,9 @@ struct ChannelMerchantInfo {
  * @TransactionInfo
  */
 struct TransactionInfo {
-    std::string strPaymentChannelMerchantDd;
-    std::string strTransactionId;
-    std::string strTime;
+    string strPaymentChannelMerchantDd;
+    string strTransactionId;
+    string strTime;
     int nPaymentChannelId;
     int nPanType;
     int nPanOverseas;
@@ -451,13 +451,13 @@ struct TransactionInfo {
  * @LeshuaPosOrder
  */
 struct LeshuaPosOrder {
-    std::string strPinpadId;
-    std::string strBatchNo;
-    std::string strFlowId;
-    std::string strMerchantId;
-    std::string strOrderId;
-    std::string strEncryptCardId;
-    std::string strCardId;
+    string strPinpadId;
+    string strBatchNo;
+    string strFlowId;
+    string strMerchantId;
+    string strOrderId;
+    string strEncryptCardId;
+    string strCardId;
     bool bValid;
 
     LeshuaPosOrder();
@@ -472,15 +472,15 @@ struct LeshuaPosOrder {
  * @LeshuaPreAuthOrder
  */
 struct LeshuaPreAuthOrder {
-    std::string strPinpadId;
-    std::string strBatchNo;
-    std::string strFlowId;
-    std::string strPreAuthCode;
-    std::string strMerchantId;
-    std::string strOrderId;
-    std::string strEncryptCardId;
-    std::string strTrackData;
-    std::string strDate;
+    string strPinpadId;
+    string strBatchNo;
+    string strFlowId;
+    string strPreAuthCode;
+    string strMerchantId;
+    string strOrderId;
+    string strEncryptCardId;
+    string strTrackData;
+    string strDate;
     bool bValid;
 
     LeshuaPreAuthOrder();
@@ -495,14 +495,14 @@ struct LeshuaPreAuthOrder {
  * @ChannelPosOrder
  */
 struct ChannelPosOrder {
-    std::string strChannelPosCati;
-    std::string strChannelBatchNo;
-    std::string strChannelFlowId;
-    std::string strChannelMerchantId;
-    std::string strMerchantId;
-    std::string strOrderId;
-    std::string strTerminalId;
-    std::string strEncryptCardId;
+    string strChannelPosCati;
+    string strChannelBatchNo;
+    string strChannelFlowId;
+    string strChannelMerchantId;
+    string strMerchantId;
+    string strOrderId;
+    string strTerminalId;
+    string strEncryptCardId;
 
     ChannelPosOrder();
     ChannelPosOrder(const ChannelPosOrder& right);
@@ -517,26 +517,26 @@ struct ChannelPosOrder {
  */
 struct Order {
     bool bValid;
-    std::string strOrderId;
-    std::string strMerchantId;
-    std::string strUserName;
-    std::string strGoodsType;
-    std::string strGoodsName;
-    std::string strGoodsDetails;
-    std::string strThirdOrderId;
-    std::string strReserverParam;
-    std::string strTime;
-    std::string strRoyalty;
-    std::string strVocherId;
-    std::string strClientIp;
-    std::string strCallbackUrl;
-    std::string strMerchantShopNo;
-    std::string strMerchantPosNo;
-    std::string strCustomerId;
-    std::string strVoucherInfo;
-    std::string strQrCode;
-    std::string strErrorMsg;
-    std::string strAttach;
+    string strOrderId;
+    string strMerchantId;
+    string strUserName;
+    string strGoodsType;
+    string strGoodsName;
+    string strGoodsDetails;
+    string strThirdOrderId;
+    string strReserverParam;
+    string strTime;
+    string strRoyalty;
+    string strVocherId;
+    string strClientIp;
+    string strCallbackUrl;
+    string strMerchantShopNo;
+    string strMerchantPosNo;
+    string strCustomerId;
+    string strVoucherInfo;
+    string strQrCode;
+    string strErrorMsg;
+    string strAttach;
     int nState;
     int nAmount;
     int nRefundAmount;
@@ -567,24 +567,24 @@ struct Order {
  */
 struct Transaction {
     bool bValid;
-    std::string strTransactionId;
-    std::string strOrderId;
-    std::string strMerchantId;
-    std::string strPinpadId;
-    std::string strLongitude;
-    std::string strLatitude;
-    std::string strUserName;
+    string strTransactionId;
+    string strOrderId;
+    string strMerchantId;
+    string strPinpadId;
+    string strLongitude;
+    string strLatitude;
+    string strUserName;
     int nAmount;
     int nOperationType;
-    std::string strTime;
-    std::string strCardId;
-    std::string strCardBank;
-    std::string strCardValid;
-    std::string strCardSeqNum;
-    std::string strIcField55;
-    std::string strIcAid;
-    std::string strIcAtc;
-    std::string strIcTc;
+    string strTime;
+    string strCardId;
+    string strCardBank;
+    string strCardValid;
+    string strCardSeqNum;
+    string strIcField55;
+    string strIcAid;
+    string strIcAtc;
+    string strIcTc;
     int nCardType;
     int nPanType;
     int nPanClass;
@@ -592,27 +592,27 @@ struct Transaction {
     int nPanOverseas;
     int nNoPwdFlag;
     int nPaychannelId;
-    std::string strChlMerchantId;
-    std::string strChlTerminalId;
+    string strChlMerchantId;
+    string strChlTerminalId;
     int nApptype;
-    std::string strMobileId;
-    std::string strChlOrderId;
-    std::string strChlRefNum;
-    std::string strChlSettleDate;
-    std::string strChlAuthCode;
-    std::string strChlBatchNum;
-    std::string strChlErrCode;
-    std::string strThirdTime;
-    std::string strPinpadUuid;
+    string strMobileId;
+    string strChlOrderId;
+    string strChlRefNum;
+    string strChlSettleDate;
+    string strChlAuthCode;
+    string strChlBatchNum;
+    string strChlErrCode;
+    string strThirdTime;
+    string strPinpadUuid;
     int nFlag;
-    std::string strEncryptCardId;
-    std::string strRecvBankCode;
-    std::string strTopAgentId;
-    std::string strRefundId;
+    string strEncryptCardId;
+    string strRecvBankCode;
+    string strTopAgentId;
+    string strRefundId;
     int nOrderAmount;
     int nCouponAmount;
-    std::string strChlMcc;
-    std::string strCardHoldSign;
+    string strChlMcc;
+    string strCardHoldSign;
 
     Transaction();
     Transaction(const Transaction& right);
@@ -626,13 +626,13 @@ struct Transaction {
  * @simpleRisk
  */
 struct simpleRisk {
-    std::string strOrderId;
-    std::string strMerchantId;
+    string strOrderId;
+    string strMerchantId;
     int nAmount;
     int nT0Flag;
     int nChlId;
-    std::string strRequest;
-    std::string strOperationType;
+    string strRequest;
+    string strOperationType;
 
     simpleRisk();
     simpleRisk(const simpleRisk& right);
@@ -647,8 +647,8 @@ struct simpleRisk {
  */
 struct leposParam {
     bool bValid;
-    std::string strKey;
-    std::string strValue;
+    string strKey;
+    string strValue;
 
     leposParam();
     leposParam(const leposParam& right);
@@ -663,9 +663,9 @@ struct leposParam {
  */
 struct mccInfo {
     bool bValid;
-    std::string strMccCode;
-    std::string strFatherMccCode;
-    std::string strGrandpaMccCode;
+    string strMccCode;
+    string strFatherMccCode;
+    string strGrandpaMccCode;
     int nMccType;
     int nDailyLimit;
     int nPinFreeFlag;
@@ -683,10 +683,10 @@ struct mccInfo {
  */
 struct offlineOrder {
     bool bValid;
-    std::string strField55;
-    std::string strOrderId;
-    std::string strMerchantId;
-    std::string strPinpadUuid;
+    string strField55;
+    string strOrderId;
+    string strMerchantId;
+    string strPinpadUuid;
     int nAmount;
 
     offlineOrder();
@@ -703,7 +703,7 @@ struct offlineOrder {
 struct offlineParam {
     bool bValid;
     int nOfflineMerchantWhitelstFlag;
-    std::string strOffLowBound;
+    string strOffLowBound;
 
     offlineParam();
     offlineParam(const offlineParam& right);
@@ -718,10 +718,10 @@ struct offlineParam {
  */
 struct merchantFirstPayInfo {
     bool bValid;
-    std::string strMerchantId;
-    std::string strOrderId;
-    std::string strTopAgentId;
-    std::string strEncryptCardId;
+    string strMerchantId;
+    string strOrderId;
+    string strTopAgentId;
+    string strEncryptCardId;
     int nAgentClass;
     int nAmount;
 
@@ -737,8 +737,8 @@ struct merchantFirstPayInfo {
  * @pinFreeCard
  */
 struct pinFreeCard {
-    std::string strEncryptCardId;
-    std::string strCreateTime;
+    string strEncryptCardId;
+    string strCreateTime;
 
     pinFreeCard();
     pinFreeCard(const pinFreeCard& right);
@@ -752,9 +752,9 @@ struct pinFreeCard {
  * @delayInsurace
  */
 struct delayInsurace {
-    std::string strMerchantId;
-    std::string strTopAgentId;
-    std::string strOrderId;
+    string strMerchantId;
+    string strTopAgentId;
+    string strOrderId;
     int nState;
     int nCompany;
 
@@ -770,14 +770,14 @@ struct delayInsurace {
  * @channelTransaction
  */
 struct channelTransaction {
-    std::string strTransactionId;
+    string strTransactionId;
     int nChannelId;
-    std::string strChannelMerchantId;
-    std::string strChannelTerminalId;
+    string strChannelMerchantId;
+    string strChannelTerminalId;
     int nAmount;
     int nOperationType;
-    std::string strTime;
-    std::string strThirdTime;
+    string strTime;
+    string strThirdTime;
 
     channelTransaction();
     channelTransaction(const channelTransaction& right);
@@ -791,18 +791,18 @@ struct channelTransaction {
  * @merchantTransaction
  */
 struct merchantTransaction {
-    std::string strTransactionId;
+    string strTransactionId;
     int nChannelId;
-    std::string strChannelMerchantId;
-    std::string strChannelTerminalId;
-    std::string strOrderId;
-    std::string strMerchantId;
+    string strChannelMerchantId;
+    string strChannelTerminalId;
+    string strOrderId;
+    string strMerchantId;
     int nAmount;
     int nOperationType;
     int nTradeStatus;
-    std::string strTime;
-    std::string strThirdTime;
-    std::string strThirdChannelSettleDate;
+    string strTime;
+    string strThirdTime;
+    string strThirdChannelSettleDate;
     int nCardType;
     int nPanType;
     int nPanClass;
@@ -811,7 +811,7 @@ struct merchantTransaction {
     int nFlag;
     int nPaySource;
     int nDeductType;
-    std::string strVoucherInfo;
+    string strVoucherInfo;
 
     merchantTransaction();
     merchantTransaction(const merchantTransaction& right);
@@ -825,14 +825,14 @@ struct merchantTransaction {
  * @holdTransaction
  */
 struct holdTransaction {
-    std::string strTransactionId;
-    std::string strMerchantId;
+    string strTransactionId;
+    string strMerchantId;
     int nChannelId;
-    std::string strChannelMerchantId;
-    std::string strChannelTerminalId;
+    string strChannelMerchantId;
+    string strChannelTerminalId;
     int nAmount;
     int nOperationType;
-    std::string strTime;
+    string strTime;
 
     holdTransaction();
     holdTransaction(const holdTransaction& right);
@@ -846,7 +846,7 @@ struct holdTransaction {
  * @orderExternInfo
  */
 struct orderExternInfo {
-    std::string strOrderID;
+    string strOrderID;
     int nPinAndSignFreeFlag;
     int nYunShanFuFlag;
 
@@ -863,12 +863,12 @@ struct orderExternInfo {
  */
 struct leposOrganization {
     bool bValid;
-    std::string strOrganizationNo;
-    std::string strUseOrganizationNo;
-    std::string strProvince;
-    std::string strCity;
-    std::string strCounty;
-    std::string strAlias;
+    string strOrganizationNo;
+    string strUseOrganizationNo;
+    string strProvince;
+    string strCity;
+    string strCounty;
+    string strAlias;
     int nCupsBlackRegionFlag;
 
     leposOrganization();
@@ -883,11 +883,11 @@ struct leposOrganization {
  * @BankCardBin
  */
 struct BankCardBin {
-    std::string strBankId;
-    std::string strBankName;
-    std::string strCardType;
-    std::string strCardBin;
-    std::string strFinInstitutionCode;
+    string strBankId;
+    string strBankName;
+    string strCardType;
+    string strCardBin;
+    string strFinInstitutionCode;
     int nCardLength;
     int nContactless;
     int nOversea;
@@ -905,8 +905,8 @@ struct BankCardBin {
  * @BankInstitutionCode
  */
 struct BankInstitutionCode {
-    std::string strFinInstitutionCode;
-    std::string strEnSimpleName;
+    string strFinInstitutionCode;
+    string strEnSimpleName;
 
     BankInstitutionCode();
     BankInstitutionCode(const BankInstitutionCode& right);
@@ -920,12 +920,12 @@ struct BankInstitutionCode {
  * @ChannelAgent
  */
 struct ChannelAgent {
-    std::string strAgentId;
-    std::string strTopAgentId;
-    std::string strAgentParentId;
-    std::string strAllSuperAgentAgentId;
-    std::string strCoopNo;
-    std::string strAgentName;
+    string strAgentId;
+    string strTopAgentId;
+    string strAgentParentId;
+    string strAllSuperAgentAgentId;
+    string strCoopNo;
+    string strAgentName;
     int nAgentLevel;
     int nAgentClass;
     int nAgentType;
@@ -942,7 +942,7 @@ struct ChannelAgent {
  * @HappyposAgentWithdrawInfo
  */
 struct HappyposAgentWithdrawInfo {
-    std::string strAgentID;
+    string strAgentID;
     int nUsageType;
 
     HappyposAgentWithdrawInfo();
@@ -957,13 +957,13 @@ struct HappyposAgentWithdrawInfo {
  * @CardNoMerchantId
  */
 struct CardNoMerchantId {
-    std::string strCradNo;
-    std::string strCustomerId;
-    std::string strCreateTime;
-    std::string strCpsBindId;
+    string strCradNo;
+    string strCustomerId;
+    string strCreateTime;
+    string strCpsBindId;
     int nChannelId;
     int nStatus;
-    std::string strUpdateTime;
+    string strUpdateTime;
 
     CardNoMerchantId();
     CardNoMerchantId(const CardNoMerchantId& right);
@@ -979,14 +979,14 @@ struct CardNoMerchantId {
 struct CPolicyParam {
     bool bValid;
     int nId;
-    std::string strPolicyId;
-    std::string strName;
-    std::string strValue;
-    std::string strComment;
+    string strPolicyId;
+    string strName;
+    string strValue;
+    string strComment;
     int nStatus;
-    std::string strUser;
-    std::string strCreateTime;
-    std::string strUpdateTime;
+    string strUser;
+    string strCreateTime;
+    string strUpdateTime;
 
     CPolicyParam();
     CPolicyParam(const CPolicyParam& right);
@@ -1000,10 +1000,10 @@ struct CPolicyParam {
  * @CChannelPosBatchInfo
  */
 struct CChannelPosBatchInfo {
-    std::string strChannelPosCati;
-    std::string strBatchNo;
-    std::string strCheckinTime;
-    std::string strTime;
+    string strChannelPosCati;
+    string strBatchNo;
+    string strCheckinTime;
+    string strTime;
 
     CChannelPosBatchInfo();
     CChannelPosBatchInfo(const CChannelPosBatchInfo& right);
@@ -1017,16 +1017,16 @@ struct CChannelPosBatchInfo {
  * @CSwipeCardCallbackInfo
  */
 struct CSwipeCardCallbackInfo {
-    std::string strOrderId;
-    std::string strCallbackUrl;
-    std::string strMessageHead;
-    std::string strMessageBody;
+    string strOrderId;
+    string strCallbackUrl;
+    string strMessageHead;
+    string strMessageBody;
     int nStatus;
     int nCurrentNum;
-    std::string strStep;
-    std::string strMaxNum;
-    std::string strLastTime;
-    std::string strTime;
+    string strStep;
+    string strMaxNum;
+    string strLastTime;
+    string strTime;
     int nType;
 
     CSwipeCardCallbackInfo();
@@ -1041,18 +1041,18 @@ struct CSwipeCardCallbackInfo {
  * @CPosOperation
  */
 struct CPosOperation {
-    std::string strChannelPosCati;
-    std::string strChannelPosBatchNo;
-    std::string strChannelPosFlowId;
-    std::string strChannelMerchantId;
-    std::string strChannelPosShopId;
-    std::string strChannelAgentId;
+    string strChannelPosCati;
+    string strChannelPosBatchNo;
+    string strChannelPosFlowId;
+    string strChannelMerchantId;
+    string strChannelPosShopId;
+    string strChannelAgentId;
     int nOperationType;
-    std::string strOrderId;
-    std::string strTransactionId;
-    std::string strShowCupsId;
-    std::string strShowCupsName;
-    std::string strResponseCode;
+    string strOrderId;
+    string strTransactionId;
+    string strShowCupsId;
+    string strShowCupsName;
+    string strResponseCode;
 
     CPosOperation();
     CPosOperation(const CPosOperation& right);
@@ -1066,10 +1066,10 @@ struct CPosOperation {
  * @PosMerchantTradeControlInfo
  */
 struct PosMerchantTradeControlInfo {
-    std::string strAgentID;
-    std::string strTopAgentID;
-    std::string strMerchantID;
-    std::string strCreateTime;
+    string strAgentID;
+    string strTopAgentID;
+    string strMerchantID;
+    string strCreateTime;
     int nAgentClass;
     int nTradeMode;
     bool bValid;
@@ -1086,8 +1086,8 @@ struct PosMerchantTradeControlInfo {
  * @PosMerchantSwitchMccControlInfo
  */
 struct PosMerchantSwitchMccControlInfo {
-    std::string strMerchantID;
-    std::string strMccCode;
+    string strMerchantID;
+    string strMccCode;
     int nAgentClass;
     int nStatus;
 
@@ -1104,14 +1104,14 @@ struct PosMerchantSwitchMccControlInfo {
  */
 struct CpsBusinessConfigInfo {
     int nBusinessYype;
-    std::string strModel;
-    std::string strParentId;
-    std::string strPayType;
-    std::string strPaymentSource;
+    string strModel;
+    string strParentId;
+    string strPayType;
+    string strPaymentSource;
     int isCps;
     int isYkpay;
     int isPos2cps;
-    std::string strAppTypes;
+    string strAppTypes;
 
     CpsBusinessConfigInfo();
     CpsBusinessConfigInfo(const CpsBusinessConfigInfo& right);
@@ -1125,11 +1125,11 @@ struct CpsBusinessConfigInfo {
  * @IsoPosInfo
  */
 struct IsoPosInfo {
-    std::string strPinpadID;
-    std::string strPinpadUUID;
-    std::string strTime;
-    std::string strPosType;
-    std::string strVersion;
+    string strPinpadID;
+    string strPinpadUUID;
+    string strTime;
+    string strPosType;
+    string strVersion;
     int nBatchNo;
     int nFlowID;
     int nRefNo;
@@ -1147,8 +1147,8 @@ struct IsoPosInfo {
  * @LeposParamInfo
  */
 struct LeposParamInfo {
-    std::string strKey;
-    std::string strValue;
+    string strKey;
+    string strValue;
     bool bValid;
 
     LeposParamInfo();
@@ -1163,12 +1163,12 @@ struct LeposParamInfo {
  * @BaseStationInfo
  */
 struct BaseStationInfo {
-    std::string strMcc;
-    std::string strMnc;
-    std::string strLac;
-    std::string strCi;
-    std::string strLongitude;
-    std::string strLatitude;
+    string strMcc;
+    string strMnc;
+    string strLac;
+    string strCi;
+    string strLongitude;
+    string strLatitude;
     bool bValid;
 
     BaseStationInfo();
@@ -1183,19 +1183,72 @@ struct BaseStationInfo {
  * @Pos2DeductRegular
  */
 struct Pos2DeductRegular {
-    std::string strRegularNo;
-    std::string strRegularName;
-    std::string strRegular;
+    string strRegularNo;
+    string strRegularName;
+    string strRegular;
     int nStatus;
-    std::string strTime;
+    string strTime;
     db_agent_api::s) say_hello(req;
-    std::string say_hi(name;
 
     Pos2DeductRegular();
     Pos2DeductRegular(const Pos2DeductRegular& right);
     Pos2DeductRegular& operator=(const Pos2DeductRegular& right);
     
 };
+
+//序列化接口
+utils
+{
+    template<> utils::addJsonValue(jReq, "_Merchant_", const merchant& _merchant_);
+    template<> utils::addJsonValue(jReq, "_MerchantCommission_", const merchantcommission& _merchantcommission_);
+    template<> utils::addJsonValue(jReq, "_MerchantCommissionByPlanId_", const merchantcommissionbyplanid& _merchantcommissionbyplanid_);
+    template<> utils::addJsonValue(jReq, "_Agent_", const agent& _agent_);
+    template<> utils::addJsonValue(jReq, "_AgentCommission_", const agentcommission& _agentcommission_);
+    template<> utils::addJsonValue(jReq, "_PinpadCheckin_", const pinpadcheckin& _pinpadcheckin_);
+    template<> utils::addJsonValue(jReq, "_pinpad_info_", const pinpad_info& _pinpad_info_);
+    template<> utils::addJsonValue(jReq, "_pinpad_uuid_info_", const pinpad_uuid_info& _pinpad_uuid_info_);
+    template<> utils::addJsonValue(jReq, "_Pinpad_", const pinpad& _pinpad_);
+    template<> utils::addJsonValue(jReq, "_MerchantBindCups_", const merchantbindcups& _merchantbindcups_);
+    template<> utils::addJsonValue(jReq, "_CupsMerchant_", const cupsmerchant& _cupsmerchant_);
+    template<> utils::addJsonValue(jReq, "_RouteDetails_", const routedetails& _routedetails_);
+    template<> utils::addJsonValue(jReq, "_ChannelPosInfo_", const channelposinfo& _channelposinfo_);
+    template<> utils::addJsonValue(jReq, "_ChannelMerchantInfo_", const channelmerchantinfo& _channelmerchantinfo_);
+    template<> utils::addJsonValue(jReq, "_TransactionInfo_", const transactioninfo& _transactioninfo_);
+    template<> utils::addJsonValue(jReq, "_LeshuaPosOrder_", const leshuaposorder& _leshuaposorder_);
+    template<> utils::addJsonValue(jReq, "_LeshuaPreAuthOrder_", const leshuapreauthorder& _leshuapreauthorder_);
+    template<> utils::addJsonValue(jReq, "_ChannelPosOrder_", const channelposorder& _channelposorder_);
+    template<> utils::addJsonValue(jReq, "_Order_", const order& _order_);
+    template<> utils::addJsonValue(jReq, "_Transaction_", const transaction& _transaction_);
+    template<> utils::addJsonValue(jReq, "_simpleRisk_", const simplerisk& _simplerisk_);
+    template<> utils::addJsonValue(jReq, "_leposParam_", const leposparam& _leposparam_);
+    template<> utils::addJsonValue(jReq, "_mccInfo_", const mccinfo& _mccinfo_);
+    template<> utils::addJsonValue(jReq, "_offlineOrder_", const offlineorder& _offlineorder_);
+    template<> utils::addJsonValue(jReq, "_offlineParam_", const offlineparam& _offlineparam_);
+    template<> utils::addJsonValue(jReq, "_merchantFirstPayInfo_", const merchantfirstpayinfo& _merchantfirstpayinfo_);
+    template<> utils::addJsonValue(jReq, "_pinFreeCard_", const pinfreecard& _pinfreecard_);
+    template<> utils::addJsonValue(jReq, "_delayInsurace_", const delayinsurace& _delayinsurace_);
+    template<> utils::addJsonValue(jReq, "_channelTransaction_", const channeltransaction& _channeltransaction_);
+    template<> utils::addJsonValue(jReq, "_merchantTransaction_", const merchanttransaction& _merchanttransaction_);
+    template<> utils::addJsonValue(jReq, "_holdTransaction_", const holdtransaction& _holdtransaction_);
+    template<> utils::addJsonValue(jReq, "_orderExternInfo_", const orderexterninfo& _orderexterninfo_);
+    template<> utils::addJsonValue(jReq, "_leposOrganization_", const leposorganization& _leposorganization_);
+    template<> utils::addJsonValue(jReq, "_BankCardBin_", const bankcardbin& _bankcardbin_);
+    template<> utils::addJsonValue(jReq, "_BankInstitutionCode_", const bankinstitutioncode& _bankinstitutioncode_);
+    template<> utils::addJsonValue(jReq, "_ChannelAgent_", const channelagent& _channelagent_);
+    template<> utils::addJsonValue(jReq, "_HappyposAgentWithdrawInfo_", const happyposagentwithdrawinfo& _happyposagentwithdrawinfo_);
+    template<> utils::addJsonValue(jReq, "_CardNoMerchantId_", const cardnomerchantid& _cardnomerchantid_);
+    template<> utils::addJsonValue(jReq, "_CPolicyParam_", const cpolicyparam& _cpolicyparam_);
+    template<> utils::addJsonValue(jReq, "_CChannelPosBatchInfo_", const cchannelposbatchinfo& _cchannelposbatchinfo_);
+    template<> utils::addJsonValue(jReq, "_CSwipeCardCallbackInfo_", const cswipecardcallbackinfo& _cswipecardcallbackinfo_);
+    template<> utils::addJsonValue(jReq, "_CPosOperation_", const cposoperation& _cposoperation_);
+    template<> utils::addJsonValue(jReq, "_PosMerchantTradeControlInfo_", const posmerchanttradecontrolinfo& _posmerchanttradecontrolinfo_);
+    template<> utils::addJsonValue(jReq, "_PosMerchantSwitchMccControlInfo_", const posmerchantswitchmcccontrolinfo& _posmerchantswitchmcccontrolinfo_);
+    template<> utils::addJsonValue(jReq, "_CpsBusinessConfigInfo_", const cpsbusinessconfiginfo& _cpsbusinessconfiginfo_);
+    template<> utils::addJsonValue(jReq, "_IsoPosInfo_", const isoposinfo& _isoposinfo_);
+    template<> utils::addJsonValue(jReq, "_LeposParamInfo_", const leposparaminfo& _leposparaminfo_);
+    template<> utils::addJsonValue(jReq, "_BaseStationInfo_", const basestationinfo& _basestationinfo_);
+    template<> utils::addJsonValue(jReq, "_Pos2DeductRegular_", const pos2deductregular& _pos2deductregular_);
+}
 }//db_agent_api
 
 #endif //DBINTERFACE_CPP_DBAGENT_STRUCT_H_

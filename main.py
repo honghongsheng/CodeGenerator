@@ -49,8 +49,8 @@ def cpp_dbagent_gen(inputFile, outputFile):
     desc = parseFile(inputFile, typeManager)
     generator = None
     
-    #generator = DbAgentStructCodeGenerator(desc, typeManager, baseName, inputFile, outputFile)
-    #generator.genCodes()
+    generator = DbAgentStructCodeGenerator(desc, typeManager, baseName, inputFile, outputFile)
+    generator.genCodes()
     
     generator = DbAgentClientCodeGenerator(desc, typeManager, baseName, inputFile, outputFile)
     generator.genCodes()

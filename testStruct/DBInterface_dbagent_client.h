@@ -13,7 +13,10 @@
 #include <json/json.h>
 #include <boost/function>
 #include "DBInterface_dbagent_struct.h"
-
+using std::string;
+using std::map;
+using std::vector;
+using std::list;
 namespace db_agent_api
 {
 
@@ -26,21 +29,23 @@ public:
     /****************************
      *      自动构建的SQL
      ****************************/
-    //MerchantCommission
-    int MerchantCommissionInsert(MerchantCommission& MerchantCommission);
-    int MerchantCommissionGet_By_MerchantId(MerchantCommission& merchantcommission, const std::string& strMerchantId);
-    int MerchantCommissionUpdate_By_MerchantId(MerchantCommission& merchantcommission, const std::string& strMerchantId);
-    //Agent
-    int AgentInsert(Agent& Agent);
-    int AgentGet_By_AgentId(Agent& agent, const std::string& strAgentId);
-    int AgentUpdate_By_AgentId(Agent& agent, const std::string& strAgentId);
+    int MerchantCommissionInsert(const db_agent_api::MerchantCommission& MerchantCommission);
+    
+    int MerchantCommissionGet_By_MerchantId(const string& strMerchantId, db_agent_api::MerchantCommission& MerchantCommission);
+    
+    int MerchantCommissionUpdate_By_MerchantId(const string& strMerchantId);
+    
+    int AgentInsert(const db_agent_api::Agent& Agent);
+    
+    int AgentGet_By_AgentId(const string& strAgentId, db_agent_api::Agent& Agent);
+    
+    int AgentUpdate_By_AgentId(const string& strAgentId);
     
     /****************************
      *      自定义调用函数
      ****************************/
-    int say_hello(const std::string& req, std::string& resq);
-    int say_hi(const std::string& name, const int& num, std::string& resp);
-    int update_metchant_commission_perfertialType(const int& nPreferentialType, const std::string& strAgentId, int& ret);
+    int say_hello(const string& req, string& resq);
+    int update_metchant_commission_perfertialType(const int& nPreferentialType, const string& strAgentId, int& ret);
 
     //请求函数的实现，可以自定义实现
     boost::function<int (const Json::Value &, Json::Value &)> m_funImpl;

@@ -12,9 +12,9 @@ class RPCParser:
         rawString = u"\n".join([line for line in lines if not line.strip().startswith(u"#") and not line.strip().startswith(u"//") ])
 
         desc = RPCDescript()
-        desc.nameSpace = self.parseNameSpace(rawString)
-        desc.serviceName = self.parseServiceName(rawString)
-        desc.exportMacro = self.parseExportMacro(rawString)
+        desc.nameSpace = self.parseKeyValue("Namespace", rawString)
+        desc.serviceName = self.parseKeyValue("ServiceName", rawString)
+        desc.exportMacro = self.parseKeyValue("ExportMacro", rawString)
         desc.HppIncludes = self.parseIncludes('Includes', rawString)
         desc.CppIncludes = self.parseIncludes('CppIncludes', rawString)
         desc.serverIncludes = self.parseIncludes('ServerIncludes', rawString)
@@ -23,36 +23,25 @@ class RPCParser:
         desc.structs = self.parseStructs(rawString)
         desc.services = self.parseServices(rawString)
         desc.consts = self.parseConsts(rawString)
-        desc.isNewError = self.parseIsNewError(rawString)
+        desc.with_trace_id = self.parseKeyValue("FUN_WITH_TRANSCID", rawString)
         return desc
 
-    def parseNameSpace(self, rawString):
-        mret = re.search(u"Namespace\s*=\s*(\w+)\s*", rawString, re.IGNORECASE)
+    def parseKeyValue(self, key, rawString):
+        mret = re.search(u"%s\s*=\s*(\w+)\s*" % key, rawString, re.IGNORECASE)
         if mret != None:
             return mret.group(1)
         else:
             return u""
 
-    def parseServiceName(self, rawString):
-        mret = re.search(u"ServiceName\s*=\s*(\w+)\s*", rawString, re.IGNORECASE)
+    def parseIncludes(self, tag, rawString):
+        ret = []
+        reString = tag + u"\s*=\s*\(([^)]*)\)\s*"
+        mret = re.search(reString, rawString, re.IGNORECASE)
         if mret != None:
-            return mret.group(1)
-        else:
-            return u""
-
-    def parseExportMacro(self, rawString):
-        mret = re.search(u"ExportMacro\s*=\s*(\w+)\s*", rawString, re.IGNORECASE)
-        if mret != None:
-            return mret.group(1)
-        else:
-            return u""
-
-    def parseIsNewError(self, rawString):
-        mret = re.search(u"IsNewError\s*=\s*(\w+)\s*", rawString, re.IGNORECASE)
-        if mret != None:
-            return True
-        else:
-            return False
+            content = mret.group(1)
+            ret = re.findall(u"\s*([^\s]+)", content)
+            ret = [item.strip(",").strip() for item in ret if len(item.strip()) > 0]
+        return ret
 
     def parseConsts(self, rawString):
         ret = []
@@ -68,16 +57,6 @@ class RPCParser:
                 m = re.search(u"//(.*)", line)
                 if m : aconst.comment = m.group(1).strip()
                 ret.append(aconst)
-        return ret
-
-    def parseIncludes(self, tag, rawString):
-        ret = []
-        reString = tag + u"\s*=\s*\(([^)]*)\)\s*"
-        mret = re.search(reString, rawString, re.IGNORECASE)
-        if mret != None:
-            content = mret.group(1)
-            ret = re.findall(u"\s*([^\s]+)", content)
-            ret = [item.strip(",").strip() for item in ret if len(item.strip()) > 0]
         return ret
 
     def parseEnums(self, rawString):
@@ -256,7 +235,8 @@ class RPCParser:
                 services.append(Service(ServiceName, Propertys, self.parseFunctions(StrFuncsContent)))
         """
         services = []
-        services.append(Service("test_server", {}, self.parseFunctions(rawString)))
+        aService = Service("test_server", {}, self.parseFunctions(rawString))
+        services.append(aService)
         return services
 
     def parseFunctions(self, rawString):
@@ -282,6 +262,7 @@ class RPCParser:
                             propertys[i.strip()] = 1
                 func_comment = self.getFuncComment(m.group(u"name").strip(), rawString)
                 func = Function(m.group(u"name").strip(), inParams , outParams, propertys, func_comment)
+                func.with_trace_id = self.parseKeyValue("FUN_WITH_TRANSCID", rawString)
                 funcs.append(func)
         return funcs
 

@@ -3379,7 +3379,6 @@ Pos2DeductRegular::Pos2DeductRegular(const Pos2DeductRegular& right)
     , nStatus(right.nStatus)
     , strTime(right.strTime)
     , say_hello(req(right.say_hello(req)
-    , say_hi(name(right.say_hi(name)
 {}
 
 Pos2DeductRegular& Pos2DeductRegular::operator=(const Pos2DeductRegular& right)
@@ -3390,8 +3389,61 @@ Pos2DeductRegular& Pos2DeductRegular::operator=(const Pos2DeductRegular& right)
     nStatus = right.nStatus;
     strTime = right.strTime;
     say_hello(req = right.say_hello(req;
-    say_hi(name = right.say_hi(name;
     return *this;
 }
 
+
+//序列化接口
+utils
+{
+    template<> utils::addJsonValue(jReq, "_Merchant_", const Merchant& _merchant_){_merchant_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_MerchantCommission_", const MerchantCommission& _merchantcommission_){_merchantcommission_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_MerchantCommissionByPlanId_", const MerchantCommissionByPlanId& _merchantcommissionbyplanid_){_merchantcommissionbyplanid_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_Agent_", const Agent& _agent_){_agent_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_AgentCommission_", const AgentCommission& _agentcommission_){_agentcommission_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_PinpadCheckin_", const PinpadCheckin& _pinpadcheckin_){_pinpadcheckin_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_pinpad_info_", const pinpad_info& _pinpad_info_){_pinpad_info_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_pinpad_uuid_info_", const pinpad_uuid_info& _pinpad_uuid_info_){_pinpad_uuid_info_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_Pinpad_", const Pinpad& _pinpad_){_pinpad_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_MerchantBindCups_", const MerchantBindCups& _merchantbindcups_){_merchantbindcups_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_CupsMerchant_", const CupsMerchant& _cupsmerchant_){_cupsmerchant_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_RouteDetails_", const RouteDetails& _routedetails_){_routedetails_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_ChannelPosInfo_", const ChannelPosInfo& _channelposinfo_){_channelposinfo_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_ChannelMerchantInfo_", const ChannelMerchantInfo& _channelmerchantinfo_){_channelmerchantinfo_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_TransactionInfo_", const TransactionInfo& _transactioninfo_){_transactioninfo_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_LeshuaPosOrder_", const LeshuaPosOrder& _leshuaposorder_){_leshuaposorder_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_LeshuaPreAuthOrder_", const LeshuaPreAuthOrder& _leshuapreauthorder_){_leshuapreauthorder_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_ChannelPosOrder_", const ChannelPosOrder& _channelposorder_){_channelposorder_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_Order_", const Order& _order_){_order_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_Transaction_", const Transaction& _transaction_){_transaction_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_simpleRisk_", const simpleRisk& _simplerisk_){_simplerisk_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_leposParam_", const leposParam& _leposparam_){_leposparam_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_mccInfo_", const mccInfo& _mccinfo_){_mccinfo_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_offlineOrder_", const offlineOrder& _offlineorder_){_offlineorder_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_offlineParam_", const offlineParam& _offlineparam_){_offlineparam_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_merchantFirstPayInfo_", const merchantFirstPayInfo& _merchantfirstpayinfo_){_merchantfirstpayinfo_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_pinFreeCard_", const pinFreeCard& _pinfreecard_){_pinfreecard_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_delayInsurace_", const delayInsurace& _delayinsurace_){_delayinsurace_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_channelTransaction_", const channelTransaction& _channeltransaction_){_channeltransaction_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_merchantTransaction_", const merchantTransaction& _merchanttransaction_){_merchanttransaction_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_holdTransaction_", const holdTransaction& _holdtransaction_){_holdtransaction_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_orderExternInfo_", const orderExternInfo& _orderexterninfo_){_orderexterninfo_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_leposOrganization_", const leposOrganization& _leposorganization_){_leposorganization_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_BankCardBin_", const BankCardBin& _bankcardbin_){_bankcardbin_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_BankInstitutionCode_", const BankInstitutionCode& _bankinstitutioncode_){_bankinstitutioncode_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_ChannelAgent_", const ChannelAgent& _channelagent_){_channelagent_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_HappyposAgentWithdrawInfo_", const HappyposAgentWithdrawInfo& _happyposagentwithdrawinfo_){_happyposagentwithdrawinfo_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_CardNoMerchantId_", const CardNoMerchantId& _cardnomerchantid_){_cardnomerchantid_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_CPolicyParam_", const CPolicyParam& _cpolicyparam_){_cpolicyparam_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_CChannelPosBatchInfo_", const CChannelPosBatchInfo& _cchannelposbatchinfo_){_cchannelposbatchinfo_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_CSwipeCardCallbackInfo_", const CSwipeCardCallbackInfo& _cswipecardcallbackinfo_){_cswipecardcallbackinfo_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_CPosOperation_", const CPosOperation& _cposoperation_){_cposoperation_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_PosMerchantTradeControlInfo_", const PosMerchantTradeControlInfo& _posmerchanttradecontrolinfo_){_posmerchanttradecontrolinfo_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_PosMerchantSwitchMccControlInfo_", const PosMerchantSwitchMccControlInfo& _posmerchantswitchmcccontrolinfo_){_posmerchantswitchmcccontrolinfo_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_CpsBusinessConfigInfo_", const CpsBusinessConfigInfo& _cpsbusinessconfiginfo_){_cpsbusinessconfiginfo_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_IsoPosInfo_", const IsoPosInfo& _isoposinfo_){_isoposinfo_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_LeposParamInfo_", const LeposParamInfo& _leposparaminfo_){_leposparaminfo_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_BaseStationInfo_", const BaseStationInfo& _basestationinfo_){_basestationinfo_.toJson(jReq);}
+    template<> utils::addJsonValue(jReq, "_Pos2DeductRegular_", const Pos2DeductRegular& _pos2deductregular_){_pos2deductregular_.toJson(jReq);}
+}
 }//db_agent_api
